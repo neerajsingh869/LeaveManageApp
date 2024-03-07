@@ -34,6 +34,7 @@ const Register = () => {
                 name: name, 
                 ohr: ohr,
                 email: email,
+                leaves: []
             };
 
             const res = await createUserWithEmailAndPassword(auth, email, password);
