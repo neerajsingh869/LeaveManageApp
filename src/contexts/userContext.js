@@ -12,7 +12,12 @@ const CustomUserContextProvider = ({ children }) => {
     const [userInfo, setUserInfo] = useState({});
 
     return (
-        <userContext.Provider value={{ isSignedIn, setIsSignedIn, userUid, setUserUid, userInfo, setUserInfo }}>
+        <userContext.Provider value={{ isSignedIn, 
+                                        setIsSignedIn, 
+                                        userUid, 
+                                        setUserUid, 
+                                        userInfo, 
+                                        setUserInfo }}>
             { children }
         </userContext.Provider>
     )
