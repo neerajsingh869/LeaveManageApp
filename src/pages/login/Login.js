@@ -5,11 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { BeatLoader } from "react-spinners";
 import toast, { Toaster } from 'react-hot-toast';
+import { db } from "../../configs/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const Login = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
-    const { setIsSignedIn, setUserUid } = useUserContextValue();
+    const { setIsSignedIn, setUserUid, setUserInfo } = useUserContextValue();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -25,18 +27,38 @@ const Login = () => {
             const password = inputPassword.current.value;
 
             const res = await signInWithEmailAndPassword(auth, email, password);
-            navigate("/");
-            setIsSignedIn(true);
-            setUserUid(res.user.uid);
 
-            toast.success('User signed in successfully!', {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
+            const docRef = doc(db, "users", res.user.uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                setUserInfo(docSnap.data());
+
+                toast.success('User signed in successfully!', {
+                    duration: 2000,
+                    style: {
+                        minWidth: "18rem",
+                        minHeight: "3.5rem",
+                        marginTo: "2rem"
+                    }
+                });
+
+                navigate("/");
+                setIsSignedIn(true);
+                setUserUid(res.user.uid);
+            } else {
+                toast.success('User details not found. Please contact IT Team!', {
+                    duration: 2000,
+                    style: {
+                        minWidth: "18rem",
+                        minHeight: "3.5rem",
+                        marginTo: "2rem"
+                    }
+                });
+
+                setIsSignedIn(false);
+                setUserUid(null);
+            }
         } catch (err) {
             toast.error(err.message, {
                 duration: 2000,
