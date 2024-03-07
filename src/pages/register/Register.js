@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { db } from "../../configs/firebase";
+import { doc, setDoc } from "firebase/firestore"; 
 import { useUserContextValue } from "../../contexts/userContext";
 import styles from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const inputEmail = useRef();
@@ -28,17 +30,21 @@ const Register = () => {
             const name = inputName.current.value;
             const ohr = inputOHR.current.value;
 
-            const res = await createUserWithEmailAndPassword(auth, email, password);
-            navigate("/");
-            setIsSignedIn(true);
-            setUserUid(res.user.uid);
-
-            setUserInfo({
+            const userInfo = {
                 name: name, 
                 ohr: ohr,
                 email: email,
                 leaves: []
-            });
+            };
+
+            const res = await createUserWithEmailAndPassword(auth, email, password);
+            await setDoc(doc(db, "users", res.user.uid), userInfo);
+
+            navigate("/");
+
+            setIsSignedIn(true);
+            setUserUid(res.user.uid);
+            setUserInfo(userInfo);
             
             toast.success('User signed up successfully!', {
                 duration: 2000,
@@ -85,7 +91,6 @@ const Register = () => {
                     </button>
                 </form>
             </div>
-            <Toaster position="top-right" />
         </>
     )
 };
