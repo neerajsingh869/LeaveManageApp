@@ -2,32 +2,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUserContextValue } from "../../contexts/userContext";
 import styles from "./Home.module.css";
 import { useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../configs/firebase";
 
 const Home = () => {
-    const { isSignedIn, userUid, userInfo, setUserInfo } = useUserContextValue();
+    const { isSignedIn, fetchUserInfo, userInfo } = useUserContextValue();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUserLeaves = async () => {
-            const docRef = doc(db, "users", userUid);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-                setUserInfo(docSnap.data());
-            } else {
-                // docSnap.data() will be undefined in this case
-                userInfo(null);
-            }
-
-        };
-
         if (isSignedIn) {
-            fetchUserLeaves();
+            fetchUserInfo();
         }
-    }, []);
+    }, [isSignedIn, fetchUserInfo]);
 
     return (
         <>

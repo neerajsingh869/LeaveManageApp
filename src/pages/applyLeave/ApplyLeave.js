@@ -2,8 +2,6 @@ import { useRef } from "react";
 import { useUserContextValue } from "../../contexts/userContext";
 import styles from "./ApplyLeave.module.css";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../configs/firebase";
-import { doc, setDoc } from "firebase/firestore"; 
 
 const ApplyLeave = () => {
     const inputLeaveType = useRef();
@@ -11,7 +9,7 @@ const ApplyLeave = () => {
     const inputStartDate = useRef();
     const inputEndDate = useRef();
 
-    const { userUid, userInfo, setUserInfo } = useUserContextValue();
+    const { submitLeaves } = useUserContextValue();
     const navigate = useNavigate();
 
     const handleOnSubmitLeaves = async (e) => {
@@ -31,18 +29,7 @@ const ApplyLeave = () => {
             endDate: endDate
         };
 
-        const updatedLeaves = [
-            leave, 
-            ...userInfo.leaves
-        ];
-
-        const updatedUserInfo = {
-            ...userInfo,
-            leaves: updatedLeaves
-        }
-
-        setUserInfo(updatedUserInfo);
-        await setDoc(doc(db, "users", userUid), updatedUserInfo);
+        submitLeaves(leave);
 
         navigate("/");
 

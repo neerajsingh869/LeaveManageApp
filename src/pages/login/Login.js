@@ -4,7 +4,7 @@ import { useUserContextValue } from "../../contexts/userContext";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { BeatLoader } from "react-spinners";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { db } from "../../configs/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -70,6 +70,7 @@ const Login = () => {
             });
 
             setIsSignedIn(false);
+            setUserUid(null);
         } finally {
             setLoading(false);
         }
@@ -95,7 +96,6 @@ const Login = () => {
                     <Link to="/signup">Or SignUp instead</Link>
                 </form>
             </div>
-            <Toaster position="top-right" />
         </>
     )
 };

@@ -9,7 +9,6 @@ import Page404 from './pages/error/Page404';
 import Home from './pages/home/Home';
 import PrivateRoute from './components/secure/PrivateRoute';
 import ApplyLeave from './pages/applyLeave/ApplyLeave';
-import { Toaster } from 'react-hot-toast';
 
 function App() {
 
@@ -31,7 +30,6 @@ function App() {
   return (
     <CustomUserContextProvider>
       <RouterProvider router={ router } />
-      <Toaster position="top-right" />
     </CustomUserContextProvider>
   );
 }

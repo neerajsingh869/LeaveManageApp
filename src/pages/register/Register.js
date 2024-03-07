@@ -65,6 +65,7 @@ const Register = () => {
             });
 
             setIsSignedIn(false);
+            setUserUid(null);
         } finally {
             setLoading(false);
         }
