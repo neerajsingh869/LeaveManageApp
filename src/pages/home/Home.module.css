@@ -1,0 +1,48 @@
+.beforeSignInHomePage {
+    display: flex;
+    width: 100vw;
+    height: calc(100vh - 5rem);
+    justify-content: center;
+    align-items: center;
+}
+
+.signInLink {
+    text-decoration: none;
+    color: #7064e5;
+}
+
+.afterSignInHomePage {
+    padding: 2rem;
+    padding-top: 5rem;
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+}
+
+.applyLeaveBtn {
+    padding: 0.5rem;
+    background-color: #7064e5;
+    font-size: 1.15rem;
+    border: 0;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.applyLeaveBtn:hover {
+    background-color: white;
+    border: 1px solid #7064e5;
+    color: #7064e5;
+    box-shadow: 0px 0px 4px #7064e5;
+}
+
+table {
+    margin-top: 2rem;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    border: 1px solid black;
+}
