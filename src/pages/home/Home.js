@@ -12,17 +12,14 @@ const Home = () => {
 
     useEffect(() => {
         const fetchUserLeaves = async () => {
-            console.log(userUid);
             const docRef = doc(db, "users", userUid);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
                 setUserInfo(docSnap.data());
             } else {
                 // docSnap.data() will be undefined in this case
                 userInfo(null);
-                console.log("No such document!");
             }
 
         };
@@ -64,8 +61,6 @@ const Home = () => {
                                 <tbody>
                                     {
                                         userInfo && userInfo.leaves.map(leave => {
-                                            console.log(typeof (leave.startDate));
-                                            console.log(leave.endDate);
                                             return (
                                                 <tr key={ leave.id }>
                                                     <td>{ leave.startDate }</td>
