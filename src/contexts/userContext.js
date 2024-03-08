@@ -72,10 +72,6 @@ const CustomUserContextProvider = ({ children }) => {
         }
 
     };
-
-    const submitLeaves = async (leave) => {
-        
-    }
     
     return (
         <userContext.Provider value={{ isSignedIn, 
@@ -85,8 +81,7 @@ const CustomUserContextProvider = ({ children }) => {
                                         userInfo, 
                                         setUserInfo,
                                         signOutUser,
-                                        fetchUserInfo,
-                                        submitLeaves }}>
+                                        fetchUserInfo }}>
             { children }
             <Toaster position="top-right" />
         </userContext.Provider>
