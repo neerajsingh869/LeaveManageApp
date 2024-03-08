@@ -81,8 +81,8 @@ const Login = () => {
             <div className={ styles.formContainer }>
                 <form onSubmit={ handleSignIn }>
                     <h2>Sign In</h2>
-                    <input type="email" placeholder="Enter Email" ref={ inputEmail } />
-                    <input type="password" placeholder="Enter Password" ref={ inputPassword } />
+                    <input type="email" placeholder="Enter Email" required ref={ inputEmail } />
+                    <input type="password" placeholder="Enter Password" required ref={ inputPassword } />
                     <button>
                         { 
                             loading ? <BeatLoader
