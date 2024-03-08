@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { db } from "../configs/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import toast, { Toaster } from 'react-hot-toast';
 
 const userContext = createContext();
@@ -74,39 +74,7 @@ const CustomUserContextProvider = ({ children }) => {
     };
 
     const submitLeaves = async (leave) => {
-        const updatedLeaves = [
-            leave, 
-            ...userInfo.leaves
-        ];
-
-        const updatedUserInfo = {
-            ...userInfo,
-            leaves: updatedLeaves
-        }
-
-        setUserInfo(updatedUserInfo);
         
-        try {
-            await setDoc(doc(db, "users", userUid), updatedUserInfo);
-
-            toast.success("Leaves submitted successfully!", {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
-        } catch (err) {
-            toast.error(err.message, {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
-        }
     }
     
     return (
